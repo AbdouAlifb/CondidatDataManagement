@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Condidat Table</title>
+<title>Question Table</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -100,61 +100,75 @@ table.table td .btn.manage:hover {
 <!--  -->
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{{route('diagnostics.index')}}">Gestion des diagnostic</a>
+        <a class="navbar-brand" href="{{route('questions.index')}}">Gestion des Question</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                @auth
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                </li>
+                @endauth
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
-            <div class="row">
-    <div class="col-sm-6">
-        <h2>Manage <b>Data</b></h2>
-    </div>
-    <div class="col-sm-6 d-flex justify-content-end">
-        <a href="{{ route('home') }}" class="btn btn-primary">Create New Candidate</a>
-    </div>
-</div>
-
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Manage <b>Questions</b></h2>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <a href="{{ route('questions.create') }}" class="btn btn-primary">Create New Question</a>
+                        &nbsp
+                        <a href="{{ route('responses.create') }}" class="btn btn-primary">Create New Response</a>
+                    </div>
+                </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>About Condidat</th>
+                        <!-- <th>#</th> -->
+                        <th>Description</th>
+                        <th>Category</th>
                         <th>Actions</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($formData as $data)
+                    @foreach($questions as $question)
                     <tr data-status="active">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->first_name }}</td>
-                        <td>{{ $data->last_name }}</td>
-                        <td>{{ $data->email }}</td>
-                        <td>{{ $data->about_you }}</td>
+                        <!-- <td>{{ $loop->iteration }}</td> -->
+                        <td>{{ $question->description }}</td>
+                        <td>{{ $question->category }}</td>
                         <td>
-    <div class="action-buttons">
-        <a href="{{ route('candidates.show', $data->id) }}" style="color: white;" class="btn btn-sm btn-info">Show</a>
-    
-        <form action="{{ route('candidates.destroy', $data->id) }}" method="POST" style="display: inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-        </form>
-    </div>
-</td>
-
-
-
+                            <div class="action-buttons">
+                                <a href="{{ route('questions.edit', $question->id) }}" style="color: white;" class="btn btn-sm btn-info">Edit</a>
+                                <form action="{{ route('questions.destroy', $question->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div> 
-    </div>   
-</div> 
+        </div>
+    </div>
+</div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
