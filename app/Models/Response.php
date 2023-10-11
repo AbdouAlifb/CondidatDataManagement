@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Response extends Model
 {
     use HasFactory;
-    protected $fillable = ['description'];
+    protected $fillable = ['description','points'];
 }

@@ -97,13 +97,57 @@ table.table td .btn.manage {
 table.table td .btn.manage:hover {
     background: #2e9c81;		
 }
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li.category-score {
+    margin-bottom: 10px;
+}
+
+span.category-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+span.percentage {
+    color: #007bff; /* Set the desired text color */
+    font-weight: bold;
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px; /* Adjust the width as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card-body {
+    color: #007bff; /* Set the desired text color */
+    font-weight: bold;
+}
+
+
 </style>
 <!--  -->
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('diagnostics.userIndex') }}">Questionnaire</a>
+    <a class="navbar-brand" href="{{ route('index') }}">Questionnaire</a>
+
         <a class="navbar-brand" href="{{ route('diagnostics.userIndex') }}">Diagnostique de l'entreprise</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -122,32 +166,19 @@ table.table td .btn.manage:hover {
         </div>
     </div>
 </nav>
+<br>
+<hr>
 
-<div class="container-xl">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <h2>Your Diagnostic Answers</h2>
-            </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Question Description</th>
-                        <th>Response Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($userDiagnostics as $diagnostic)
-                    <tr data-status="active">
-                        <td>{{ $diagnostic->question->description }}</td>
-                        <td>{{ $diagnostic->response->description }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+<div class="card-container">
+    @foreach($categoryScores as $categoryScore)
+        <div class="card">
+            <div class="card-header">{{ $categoryScore['category'] }}</div>
+            <div class="card-body">{{ number_format($categoryScore['percentage'], 2) }}%</div>
         </div>
-    </div>
+    @endforeach
 </div>
+
+
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

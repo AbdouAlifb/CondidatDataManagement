@@ -16,6 +16,7 @@ class ResponseController extends Controller
     {
         $data = $request->validate([
             'description' => 'required',
+            'points' => 'required',
         
         ]);
 

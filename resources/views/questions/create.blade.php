@@ -61,18 +61,11 @@
                         <div class="form-group">
     <label for="category">Category:</label>
     <select name="category" id="category" class="form-control" required>
-        <option value="Ressource Humaine">Ressource Humaine</option>
-        <option value="Gestion de Production">Gestion de Production</option>
-        <option value="Administration">Administration</option>
-        <option value="Finance">Finance</option>
-        <option value="Marketing">Marketing</option>
-        <option value="Informatique">Informatique</option>
-        <option value="Logistique">Logistique</option>
-        <option value="Vente">Vente</option>
-        <option value="Communication">Communication</option>
-        <option value="Juridique">Juridique</option>
-        <option value="Qualité">Qualité</option>
-        <!-- Add more options as needed -->
+        <option value="Category 1">Category 1</option>
+        <option value="Category 2">Category 2</option>
+        <option value="Category 3">Category 3</option>
+        <option value="Category 4">Category 4</option>
+        
     </select>
 </div>
 

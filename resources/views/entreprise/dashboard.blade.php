@@ -69,14 +69,14 @@ table.table {
 }
 table.table tr th, table.table tr td {
     border-color: #e9e9e9;
-    padding: 12px 15px;
+    /* padding: 12px 15px; */
     vertical-align: middle;
 }
 table.table tr th:first-child {
-    width: 40px;
+    /* width: 40px; */
 }
 table.table tr th:last-child {
-    width: 100px;
+    /* width: 100px; */
 }
 table.table-striped tbody tr:nth-of-type(odd) {
     background-color: #fcfcfc;
@@ -101,7 +101,7 @@ table.table td .btn.manage:hover {
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('diagnostics.userIndex') }}">Questionnaire</a>
+        <a class="navbar-brand" href="{{ route('index') }}">Questionnaire</a>
         <a class="navbar-brand" href="{{ route('diagnostics.userIndex') }}">Diagnostique de l'entreprise</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -120,7 +120,6 @@ table.table td .btn.manage:hover {
         </div>
     </div>
 </nav>
-
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}
@@ -129,40 +128,54 @@ table.table td .btn.manage:hover {
     </button>
 </div>
 @endif
+
+
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ session('error') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
 <div class="container-xl">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <h2>Question Table</h2>
-                </div>
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <h2>Question Table</h2>
+            </div>
+            <form action="{{ route('diagnostics.batchStore') }}" method="POST">
+                @csrf
                 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Question</th>
-            <th>Responses</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($questions as $question)
-        <tr>
-            <td>{{ $question->description }}</td>
-            <td>
-                <form action="{{ route('diagnostics.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="question_id" value="{{ $question->id }}">
-                    <select name="response_id" class="form-control">
-                        @foreach($responses as $response)
-                            <option value="{{ $response->id }}">{{ $response->description }}</option>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Question</th>
+                            <th>Responses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($questions as $question)
+                            <tr>
+                                <td>{{ $question->category }}</td>
+                                <td>{{ $question->description }}</td>
+                                <td>
+                                    <select name="responses[{{ $question->id }}]" class="form-control">
+                                        @foreach($responses as $response)
+                                            <option value="{{ $response->id }}">{{ $response->description }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
                         @endforeach
-                    </select>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Choose Response</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Submit Responses</button>
+            </form>
+        </div>
+    </div>
+</div>
 
             </div>
         </div>

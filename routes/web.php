@@ -21,7 +21,11 @@ use App\Http\Controllers\DiagnosticsController;
 
 Route::get('/index', [UsersController::class, 'dashboard'])->name('index');
 Route::post('/diagnostics', [DiagnosticsController::class, 'store'])->name('diagnostics.store');
+Route::post('/diagnostics', [DiagnosticsController::class, 'batchStore'])->name('diagnostics.batchStore');
 Route::get('/user/diagnostics', [DiagnosticsController::class, 'userIndex'])->name('diagnostics.userIndex');
+
+
+
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/diagnostics', [DiagnosticsController::class, 'index'])->name('diagnostics.index');

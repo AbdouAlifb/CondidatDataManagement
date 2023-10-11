@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnostic extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'question_id', 'response_id'];
+    protected $fillable = ['user_id', 'question_id', 'response_id','score'];
 
     public function user()
     {

@@ -16,7 +16,7 @@ return new class extends Migration
             Schema::create('responses', function (Blueprint $table) {
                 $table->id();
                 $table->string('description'); // Add the 'description' column as a string
-             
+                $table->string('points'); 
                 $table->timestamps();
             });
         }
